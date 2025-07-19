@@ -2,20 +2,20 @@ version: 1.0
 runtime: python3
 build:
   commands:
-    pre-build:
-      - set -x  # show each command as it runs
-      - set +e  # don't exit on first error
-      - echo "🐍 Python version:"
-      - python --version || echo "⚠️ Failed to get Python version"
-      - echo "📦 Pip version:"
-      - pip --version || echo "⚠️ Failed to get pip version"
-      - echo "📁 Directory contents:"
-      - ls -la || echo "⚠️ Failed to list files"
-      - echo "📄 requirements.txt contents:"
-      - cat requirements.txt || echo "⚠️ Missing requirements.txt"
-      - echo "📥 Installing requirements..."
-      - pip install -r requirements.txt || echo "❌ pip install failed"
-      - echo "✅ End of pre-build"
+    pre-build: |
+      set -x
+      set +e
+      echo "🐍 Python version:"
+      python --version || echo "⚠️ Failed to get Python version"
+      echo "📦 Pip version:"
+      pip --version || echo "⚠️ Failed to get pip version"
+      echo "📁 Directory contents:"
+      ls -la || echo "⚠️ Failed to list files"
+      echo "📄 requirements.txt contents:"
+      cat requirements.txt || echo "⚠️ Missing requirements.txt"
+      echo "📥 Installing requirements..."
+      pip install -r requirements.txt || echo "❌ pip install failed"
+      echo "✅ End of pre-build"
 run:
   runtime-version: 3.8
   command: gunicorn --bind=0.0.0.0:8000 app:app
