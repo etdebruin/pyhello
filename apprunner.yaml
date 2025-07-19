@@ -3,17 +3,10 @@ runtime: python3
 build:
   commands:
     pre-build:
-      - echo "=== Checking Python ==="
-      - python --version || echo "❌ Python not found"
-      - echo "=== Checking pip ==="
-      - pip --version || echo "❌ pip not found"
-      - echo "=== Listing directory ==="
-      - ls -la || echo "❌ ls failed"
-      - echo "=== Checking requirements.txt ==="
-      - cat requirements.txt || echo "❌ requirements.txt missing"
-      - echo "=== Installing dependencies ==="
-      - pip install -r requirements.txt || echo "❌ pip install failed"
-      - echo "=== Done with pre-build ==="
+      - echo "✅ Python:" && python --version
+      - echo "✅ Pip:" && pip --version
+      - echo "✅ Files:" && ls -la
+      - echo "✅ Installing..." && pip install -r requirements.txt
 run:
   runtime-version: 3.8
   command: python -m gunicorn --bind=0.0.0.0:8000 app:app
