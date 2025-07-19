@@ -3,11 +3,17 @@ runtime: python3
 build:
   commands:
     pre-build:
-      - pip install -r requirements.txt
-    post-build:
-      - python --version
-      - pip --version
-      - pip list
+      - echo "🐍 Python version:"
+      - python --version || echo "⚠️ Failed to get Python version"
+      - echo "📦 Pip version:"
+      - pip --version || echo "⚠️ Failed to get pip version"
+      - echo "📁 Current directory contents:"
+      - ls -la || echo "⚠️ Failed to list directory"
+      - echo "📄 Contents of requirements.txt:"
+      - cat requirements.txt || echo "⚠️ requirements.txt not found"
+      - echo "📥 Installing dependencies..."
+      - pip install -r requirements.txt || echo "❌ pip install failed"
+      - echo "✅ Done with pre-build"
 run:
   runtime-version: 3.8
   command: gunicorn --bind=0.0.0.0:8000 app:app
