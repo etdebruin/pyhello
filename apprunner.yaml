@@ -6,7 +6,7 @@ build:
       - python --version
       - pip install -r requirements.txt
 run:
-  command: sh -c "sleep 2 && python -m gunicorn --bind=0.0.0.0:8080 app:app"
+  command: sh -c "sleep 2 && python -m gunicorn --workers=1 --bind=0.0.0.0:8080 app:app"
   network:
     port: 8000
     env: PORT
